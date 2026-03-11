@@ -85,6 +85,8 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="<?= SITE_URL ?>/assets/js/swiper-bundle.min.js"></script>
+<script src="<?= SITE_URL ?>/assets/js/nav.js"></script>
 <script src="<?= SITE_URL ?>/assets/js/shop.js"></script>
 <script>
 // Mobile nav

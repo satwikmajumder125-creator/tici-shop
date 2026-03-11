@@ -18,58 +18,324 @@ $currentPage  = basename($_SERVER['PHP_SELF'], '.php');
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/swiper-bundle.min.css">
+<link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/nav.css">
 <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
 </head>
 <body>
 
 <!-- Announcement Bar -->
 <div class="announcement-bar">
-  🌿 Free shipping on orders above <strong>₹999</strong> &nbsp;|&nbsp; 🧫 Fresh tissue culture plants weekly &nbsp;|&nbsp; 🚚 Pan-India delivery
+  <ul>
+    <li><i class="fa-solid fa-indian-rupee-sign"></i> Free shipping on orders above <strong>₹999</strong></li>
+    <li><i class="fa-brands fa-pagelines"></i> Fresh tissue culture plants weekly</li>
+    <li><i class="fa-solid fa-truck-fast"></i> Pan-India delivery</li>
+  </ul>
 </div>
 
 <!-- ── Site Header ─────────────────────────────────────── -->
 <header class="site-header">
-  <div class="container">
-    <div class="header-top">
-
-      <!-- Hamburger (mobile) -->
-      <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fa fa-bars"></i>
-      </button>
-
-      <!-- Logo -->
+  <!-- Main Nav -->
+  <div class="container-fluid">
+  <nav class="navbar">
+    <div class="navbar__left">
       <a href="<?= SITE_URL ?>/index.php" class="site-logo">
-        <div class="logo-icon">🌿</div>
-        <div class="logo-text">
-          <span class="logo-name">TiCi</span>
-          <span class="logo-tagline">NatureLab</span>
-        </div>
+        <img src="<?= SITE_URL ?>/assets/img/hed-logo.svg" alt="">
       </a>
-
-      <!-- Live Search -->
-      <div class="header-search" id="searchWrap" style="position:relative">
-        <form action="<?= SITE_URL ?>/shop/index.php" method="GET" autocomplete="off" onsubmit="closeSearch()" style="display:flex;width:100%;height:100%;align-items:center">
-          <select name="cat" style="height:100%;padding:0 8px 0 12px;border:none;border-right:1px solid var(--border);background:transparent;color:var(--text-primary);font-size:.78rem;cursor:pointer;outline:none;min-width:120px;max-width:140px">
-            <option value="">All categories</option>
-            <?php foreach (getCategories() as $cat): ?>
-            <option value="<?= h($cat['slug']) ?>"><?= h($cat['name']) ?></option>
-            <?php endforeach; ?>
-          </select>
-          <input type="text" name="q" id="searchInput"
-                 placeholder="Search plants, fertilizers…"
-                 value="<?= h($_GET['q'] ?? '') ?>"
-                 autocomplete="off"
-                 style="flex:1;border:none;background:transparent;outline:none;padding:0 12px;font-size:.875rem;color:var(--text-primary)"
-                 oninput="liveSearch(this.value)"
-                 onfocus="if(this.value.length>=2) liveSearch(this.value)"
-                 onkeydown="searchNav(event)">
-          <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
-        </form>
-        <!-- Dropdown -->
-        <div id="searchDrop" style="display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;border:1px solid #e0e0e0;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.15);z-index:9999;overflow:hidden;max-height:520px;overflow-y:auto"></div>
+      <div class="burger" id="burger">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
       </div>
-
-      <!-- Actions -->
+    </div>
+    <div class="navbar__center">
+      <span class="overlay"></span>
+      <div class="menu" id="menu">
+        <ul class="menu__inner">
+          <li class="menu__item"><a href="#" class="menu__link">Home</a></li>
+          <li class="menu__item menu__dropdown">
+            <a href="#" class="menu__link">
+              Products
+              <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div class="submenu megamenu__text">
+              <div class="submenu__inner">
+                <h4 class="submenu__title">Women</h4>
+                <ul class="submenu__list">
+                  <li><a href="#" class="menu__link">Shirts & Blouses</a></li>
+                  <li><a href="#" class="menu__link">Pants</a></li>
+                  <li><a href="#" class="menu__link">Blazers & Vests</a></li>
+                  <li><a href="#" class="menu__link">Cardigans & Sweaters</a></li>
+                </ul>
+              </div>
+              <div class="submenu__inner">
+                <h4 class="submenu__title">Men</h4>
+                <ul class="submenu__list">
+                  <li><a href="#" class="menu__link">T-shirts & Tanks</a></li>
+                  <li><a href="#" class="menu__link">Pants</a></li>
+                  <li><a href="#" class="menu__link">Hoodies & Sweatshirts</a></li>
+                  <li><a href="#" class="menu__link">Blazers & Suits</a></li>
+                </ul>
+              </div>
+              <div class="submenu__inner">
+                <h4 class="submenu__title">Kids</h4>
+                <ul class="submenu__list">
+                  <li><a href="#" class="menu__link">Clothing</a></li>
+                  <li><a href="#" class="menu__link">Outerwear</a></li>
+                  <li><a href="#" class="menu__link">Activewear</a></li>
+                  <li><a href="#" class="menu__link">Accessories</a></li>
+                </ul>
+              </div>
+              <div class="submenu__inner">
+                <h4 class="submenu__title">Sport</h4>
+                <ul class="submenu__list">
+                  <li><a href="#" class="menu__link">Clothing</a></li>
+                  <li><a href="#" class="menu__link">Swimwear</a></li>
+                  <li><a href="#" class="menu__link">Outerwear</a></li>
+                  <li><a href="#" class="menu__link">Accessories & Equipment</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="menu__item menu__dropdown">
+            <a href="#" class="menu__link">
+              Category
+              <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <ul class="submenu megamenu__normal">
+              <li class="menu__item">
+                <a href="#" class="menu__link">
+                  Women
+                  <i class="fa-solid fa-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                  <li><a href="#" class="menu__link">Dresses</a></li>
+                  <li><a href="#" class="menu__link">Tops</a></li>
+                  <li><a href="#" class="menu__link">Bottoms</a></li>
+                  <li><a href="#" class="menu__link">Outerwear</a></li>
+                </ul>
+              </li>
+              <li class="menu__item">
+                <a href="#" class="menu__link">
+                  Men
+                  <i class="fa-solid fa-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                  <li class="menu__item">
+                    <a href="#" class="menu__link">
+                      Shirts
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu">
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Casual Shirts
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">Polo Shirts</a></li>
+                          <li><a href="#" class="menu__link">T-Shirts</a></li>
+                          <li><a href="#" class="menu__link">Henley Shirts</a></li>
+                          <li><a href="#" class="menu__link">Tank Tops</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Formal Shirts
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">Dress Shirts</a></li>
+                          <li><a href="#" class="menu__link">Oxford Shirts</a></li>
+                          <li><a href="#" class="menu__link">Linen Shirts</a></li>
+                          <li><a href="#" class="menu__link">Flannel Shirts</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="menu__link">Button-Down Shirts</a></li>
+                      <li><a href="#" class="menu__link">Hawaiian Shirts</a></li>
+                    </ul>
+                  </li>
+                  <li class="menu__item">
+                    <a href="#" class="menu__link">
+                      Pants
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu">
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Jeans
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">Slim Fit</a></li>
+                          <li><a href="#" class="menu__link">Regular Fit</a></li>
+                          <li><a href="#" class="menu__link">Relaxed Fit</a></li>
+                          <li><a href="#" class="menu__link">Bootcut</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Chinos
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">Classic Chinos</a></li>
+                          <li><a href="#" class="menu__link">Slim Chinos</a></li>
+                          <li><a href="#" class="menu__link">Cargo Chinos</a></li>
+                          <li><a href="#" class="menu__link">Performance Chinos</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="menu__link">Dress Pants</a></li>
+                      <li><a href="#" class="menu__link">Shorts</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#" class="menu__link">Jackets</a></li>
+                  <li><a href="#" class="menu__link">Suits</a></li>
+                </ul>
+              </li>
+              <li class="menu__item">
+                <a href="#" class="menu__link">
+                  Kids
+                  <i class="fa-solid fa-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                  <li class="menu__item">
+                    <a href="#" class="menu__link">
+                      Boys
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu">
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Ages 2-4
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">T-Shirts</a></li>
+                          <li><a href="#" class="menu__link">Pants</a></li>
+                          <li><a href="#" class="menu__link">Shorts</a></li>
+                          <li><a href="#" class="menu__link">Sweaters</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Ages 5-7
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">T-Shirts</a></li>
+                          <li><a href="#" class="menu__link">Jeans</a></li>
+                          <li><a href="#" class="menu__link">Hoodies</a></li>
+                          <li><a href="#" class="menu__link">Jackets</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="menu__link">Ages 8-10</a></li>
+                      <li><a href="#" class="menu__link">Ages 11-13</a></li>
+                    </ul>
+                  </li>
+                  <li class="menu__item">
+                    <a href="#" class="menu__link">
+                      Girls
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <ul class="submenu">
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Ages 2-4
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">Dresses</a></li>
+                          <li><a href="#" class="menu__link">Tops</a></li>
+                          <li><a href="#" class="menu__link">Leggings</a></li>
+                          <li><a href="#" class="menu__link">Sweaters</a></li>
+                        </ul>
+                      </li>
+                      <li class="menu__item">
+                        <a href="#" class="menu__link">
+                          Ages 5-7
+                          <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                        <ul class="submenu">
+                          <li><a href="#" class="menu__link">Dresses</a></li>
+                          <li><a href="#" class="menu__link">T-Shirts</a></li>
+                          <li><a href="#" class="menu__link">Jeans</a></li>
+                          <li><a href="#" class="menu__link">Hoodies</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="#" class="menu__link">Ages 8-10</a></li>
+                      <li><a href="#" class="menu__link">Ages 11-13</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#" class="menu__link">Baby (0-24 months)</a></li>
+                  <li><a href="#" class="menu__link">Accessories</a></li>
+                </ul>
+              </li>
+              <li class="menu__item">
+                <a href="#" class="menu__link">
+                  Sport
+                  <i class="fa-solid fa-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                  <li><a href="#" class="menu__link">Running</a></li>
+                  <li><a href="#" class="menu__link">Basketball</a></li>
+                  <li><a href="#" class="menu__link">Soccer</a></li>
+                  <li><a href="#" class="menu__link">Swimming</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="menu__item menu__dropdown">
+            <a href="#" class="menu__link">
+              More
+              <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div class="submenu megamenu__image">
+              <div class="submenu__inner">
+                <a href="#">
+                  <img src="https://plus.unsplash.com/premium_photo-1677013011737-ba61149ba70c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="submenu-image" alt="">
+                  <span class="submenu__title">Home</span>
+                </a>
+              </div>
+              <div class="submenu__inner">
+                <a href="#">
+                  <img src="https://images.unsplash.com/photo-1515688594390-b649af70d282?q=80&w=1612&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="submenu-image" alt="">
+                  <span class="submenu__title">Beauty</span>
+                </a>
+              </div>
+              <div class="submenu__inner">
+                <a href="#">
+                  <img src="https://plus.unsplash.com/premium_photo-1676550886096-bfc64aae1e2a?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="submenu-image" alt="">
+                  <span class="submenu__title">Holiday</span>
+                </a>
+              </div>
+              <div class="submenu__inner">
+                <a href="#">
+                  <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="submenu-image" alt="">
+                  <span class="submenu__title">Sale</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="menu__item menu__dropdown">
+            <a href="#" class="menu__link">
+              Account
+              <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <ul class="submenu megamenu__normal">
+              <li><a href="#" class="menu__link">Login</a></li>
+              <li><a href="#" class="menu__link">Register</a></li>
+              <li><a href="#" class="menu__link">Track Order</a></li>
+              <li><a href="#" class="menu__link">Help</a></li>
+            </ul>
+          </li>
+          <li class="menu__item"><a href="#" class="menu__link">Support</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="navbar__right">
+            <!-- Actions -->
       <div class="header-actions">
         <?php if (isLoggedIn()): ?>
         <a href="<?= SITE_URL ?>/account/index.php" class="hdr-btn">
@@ -91,77 +357,41 @@ $currentPage  = basename($_SERVER['PHP_SELF'], '.php');
         </a>
       </div>
     </div>
-  </div>
-
-  <!-- Main Nav -->
-  <nav class="main-nav">
-    <div class="container">
-      <div class="nav-inner">
-        <a href="<?= SITE_URL ?>/index.php" class="nav-link <?= $currentPage==='index'?'active':'' ?>">
-          <span class="nav-emoji">🏠</span> Home
-        </a>
-        <a href="<?= SITE_URL ?>/shop/index.php" class="nav-link <?= $currentPage==='index'&&str_contains($_SERVER['PHP_SELF'],'shop')?'active':'' ?>">
-          <span class="nav-emoji">🛍️</span> Shop
-        </a>
-        <?php foreach ($topCats as $cat): ?>
-        <a href="<?= SITE_URL ?>/shop/index.php?category=<?= h($cat['slug']) ?>" class="nav-link">
-          <span class="nav-emoji"><?= h($cat['image']) ?></span> <?= h($cat['name']) ?>
-        </a>
-        <?php endforeach; ?>
-        <a href="<?= SITE_URL ?>/pages/about.php" class="nav-link">About</a>
-        <a href="<?= SITE_URL ?>/pages/contact.php" class="nav-link">Contact</a>
-        <a href="<?= SITE_URL ?>/shop/index.php?sale=1" class="nav-link sale">🔥 Sale</a>
-      </div>
-    </div>
   </nav>
+  </div>  
+          <div class="header-bottom">
+              <div class="container">
+    <div class="header-top">
+
+      <!-- Live Search -->
+      <div class="header-search" id="searchWrap" style="position:relative">
+        <form action="<?= SITE_URL ?>/shop/index.php" method="GET" autocomplete="off" onsubmit="closeSearch()" style="display:flex;width:100%;height:100%;align-items:center">
+          <select name="cat">
+            <option value="">All categories</option>
+            <?php foreach (getCategories() as $cat): ?>
+            <option value="<?= h($cat['slug']) ?>"><?= h($cat['name']) ?></option>
+            <?php endforeach; ?>
+          </select>
+          <input type="text" name="q" id="searchInput"
+                 placeholder="Search plants, fertilizers…"
+                 value="<?= h($_GET['q'] ?? '') ?>"
+                 autocomplete="off"
+                 oninput="liveSearch(this.value)"
+                 onfocus="if(this.value.length>=2) liveSearch(this.value)"
+                 onkeydown="searchNav(event)">
+          <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+        </form>
+        <!-- Dropdown -->
+        <div id="searchDrop" class="nav-drop-item"></div>
+      </div>
+
+
+    </div>
+  </div>   
+          </div>
 </header>
 
-<!-- ── Mobile Nav Drawer ───────────────────────────────── -->
-<div class="mobile-nav" id="mobileNav">
-  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
-  <div class="mobile-nav-drawer">
-    <div class="mobile-nav-header">
-      <a href="<?= SITE_URL ?>/index.php" class="site-logo" onclick="closeMobileNav()">
-        <div class="logo-icon" style="width:36px;height:36px;font-size:1.1rem">🌿</div>
-        <div class="logo-text"><span class="logo-name">TiCi NatureLab</span></div>
-      </a>
-      <button class="mobile-nav-close" onclick="closeMobileNav()"><i class="fa fa-times"></i></button>
-    </div>
 
-    <!-- Mobile search -->
-    <div style="padding:12px 16px;border-bottom:1px solid var(--border)">
-      <form action="<?= SITE_URL ?>/shop/index.php" method="GET">
-        <div style="position:relative">
-          <input type="text" name="q" placeholder="Search plants…" style="width:100%;padding:10px 40px 10px 14px;border:1.5px solid var(--border-strong);border-radius:var(--radius-full);font-size:.875rem;outline:none" value="<?= h($_GET['q'] ?? '') ?>">
-          <button type="submit" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text-muted);background:none;border:none"><i class="fa fa-search"></i></button>
-        </div>
-      </form>
-    </div>
-
-    <div class="mobile-nav-links">
-      <a href="<?= SITE_URL ?>/index.php" class="mobile-nav-link" onclick="closeMobileNav()"><span class="mn-emoji">🏠</span> Home</a>
-      <a href="<?= SITE_URL ?>/shop/index.php" class="mobile-nav-link" onclick="closeMobileNav()"><span class="mn-emoji">🛍️</span> All Products</a>
-      <?php foreach ($categories as $cat): ?>
-      <a href="<?= SITE_URL ?>/shop/index.php?category=<?= h($cat['slug']) ?>" class="mobile-nav-link" onclick="closeMobileNav()">
-        <span class="mn-emoji"><?= h($cat['image']) ?></span> <?= h($cat['name']) ?>
-      </a>
-      <?php endforeach; ?>
-      <a href="<?= SITE_URL ?>/shop/index.php?sale=1" class="mobile-nav-link" style="color:var(--terracotta)" onclick="closeMobileNav()"><span class="mn-emoji">🔥</span> Sale Items</a>
-      <a href="<?= SITE_URL ?>/pages/about.php" class="mobile-nav-link" onclick="closeMobileNav()"><span class="mn-emoji">ℹ️</span> About Us</a>
-      <a href="<?= SITE_URL ?>/pages/contact.php" class="mobile-nav-link" onclick="closeMobileNav()"><span class="mn-emoji">📞</span> Contact</a>
-      <a href="<?= SITE_URL ?>/pages/track-order.php" class="mobile-nav-link" onclick="closeMobileNav()"><span class="mn-emoji">📦</span> Track Order</a>
-    </div>
-    <div class="mobile-nav-actions">
-      <?php if (isLoggedIn()): ?>
-      <a href="<?= SITE_URL ?>/account/index.php" class="btn btn-secondary btn-full" onclick="closeMobileNav()"><i class="fa fa-user"></i> My Account</a>
-      <a href="<?= SITE_URL ?>/account/logout.php" class="btn btn-secondary btn-full" style="color:var(--terracotta);border-color:var(--terracotta)">Logout</a>
-      <?php else: ?>
-      <a href="<?= SITE_URL ?>/account/login.php" class="btn btn-primary btn-full" onclick="closeMobileNav()"><i class="fa fa-sign-in-alt"></i> Login</a>
-      <a href="<?= SITE_URL ?>/account/register.php" class="btn btn-secondary btn-full" onclick="closeMobileNav()">Create Account</a>
-      <?php endif; ?>
-    </div>
-  </div>
-</div>
 
 <!-- Flash -->
 <?php if ($flash): ?>
@@ -193,10 +423,10 @@ function renderDrop(data, q) {
   var drop = document.getElementById('searchDrop');
   if (!data.suggestions.length && !data.products.length) { closeSearch(); return; }
 
-  var html = '';
+  var html = '<div class="nav-drop-item-scroll">';
 
   if (data.suggestions.length) {
-    html += '<div style="padding:10px 16px 4px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999">Suggestions</div>';
+    html += '<div class="nv-hd">Suggestions</div>';
     data.suggestions.forEach(function(s, i) {
       var bold = s.replace(new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi'), '<strong style="color:var(--green-dark)">$1</strong>');
       html += '<div class="sdrop-sug" data-idx="sug-' + i + '" onclick="doSearch(\'' + escQ(s) + '\')" style="padding:9px 18px;cursor:pointer;font-size:.875rem;color:var(--green-bright);display:flex;align-items:center;gap:8px">'
@@ -206,7 +436,7 @@ function renderDrop(data, q) {
   }
 
   if (data.products.length) {
-    html += '<div style="padding:10px 16px 4px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#999;border-top:1px solid #f0f0f0;margin-top:4px">Products</div>';
+    html += '<div class="nv-hd">Products</div>';
     data.products.forEach(function(p, i) {
       html += '<a class="sdrop-prod" data-idx="prod-' + i + '" href="' + p.url + '" style="display:flex;align-items:center;gap:12px;padding:9px 16px;text-decoration:none;color:inherit;border-bottom:1px solid #f8f8f8" onclick="closeSearch()">'
             + (p.thumb
@@ -222,7 +452,8 @@ function renderDrop(data, q) {
   // Footer link
   html += '<a href="<?= SITE_URL ?>/shop/index.php?q=' + encodeURIComponent(q) + '" onclick="closeSearch()" style="display:block;text-align:center;padding:12px;font-size:.83rem;font-weight:600;color:var(--green-bright);border-top:1px solid #f0f0f0;background:#fafafa;text-decoration:none">Search for &ldquo;' + escHtml(q) + '&rdquo; →</a>';
 
-  drop.innerHTML = html;
+  html += '</div>';
+drop.innerHTML = html;
   drop.style.display = 'block';
   _searchActive = -1;
 }

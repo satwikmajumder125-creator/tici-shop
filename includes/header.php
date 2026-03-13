@@ -18,9 +18,9 @@ $currentPage  = basename($_SERVER['PHP_SELF'], '.php');
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/swiper-bundle.min.css">
 <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/nav.css">
+<link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/slick.css">
 <link rel="stylesheet" href="<?= SITE_URL ?>/assets/css/style.css">
 </head>
 <body>
@@ -49,11 +49,63 @@ $currentPage  = basename($_SERVER['PHP_SELF'], '.php');
         <span class="burger-line"></span>
       </div>
     </div>
-    <div class="navbar__center">
+      <!-- Live Search -->
+      <div class="header-search" id="searchWrap" style="position:relative">
+        <form action="<?= SITE_URL ?>/shop/index.php" method="GET" autocomplete="off" onsubmit="closeSearch()" style="display:flex;width:100%;height:100%;align-items:center">
+          <select name="cat">
+            <option value="">All categories</option>
+            <?php foreach (getCategories() as $cat): ?>
+            <option value="<?= h($cat['slug']) ?>"><?= h($cat['name']) ?></option>
+            <?php endforeach; ?>
+          </select>
+          <input type="text" name="q" id="searchInput"
+                 placeholder="Search plants, fertilizers…"
+                 value="<?= h($_GET['q'] ?? '') ?>"
+                 autocomplete="off"
+                 oninput="liveSearch(this.value)"
+                 onfocus="if(this.value.length>=2) liveSearch(this.value)"
+                 onkeydown="searchNav(event)">
+          <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
+        </form>
+        <!-- Dropdown -->
+        <div id="searchDrop" class="nav-drop-item"></div>
+      </div>
+    <div class="navbar__right">
+            <!-- Actions -->
+      <div class="header-actions">
+        <?php if (isLoggedIn()): ?>
+        <a href="<?= SITE_URL ?>/account/index.php" class="hdr-btn">
+          <i class="fa fa-user"></i><span>Account</span>
+        </a>
+        <a href="<?= SITE_URL ?>/account/wishlist.php" class="hdr-btn">
+          <i class="fa fa-heart"></i><span>Wishlist</span>
+          <?php if ($wishCount > 0): ?><span class="hdr-badge"><?= $wishCount ?></span><?php endif; ?>
+        </a>
+        <?php else: ?>
+        <a href="<?= SITE_URL ?>/account/login.php" class="hdr-btn">
+          <i class="fa fa-user"></i><span>Login</span>
+        </a>
+        <?php endif; ?>
+        <a href="<?= SITE_URL ?>/cart/index.php" class="hdr-btn">
+          <i class="fa fa-cart-shopping"></i>
+          <span class="hdr-badge"><?= $cartCount ?></span>
+          <span>Cart</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+  </div>  
+          <div class="header-bottom">
+              <div class="container">
+    <div class="header-top">
+
+              <div class="navbar__center">
       <span class="overlay"></span>
       <div class="menu" id="menu">
         <ul class="menu__inner">
           <li class="menu__item"><a href="#" class="menu__link">Home</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">About</a></li>
+          <li class="menu__item"><a href="#" class="menu__link">Gallery</a></li>
           <li class="menu__item menu__dropdown">
             <a href="#" class="menu__link">
               Products
@@ -334,56 +386,6 @@ $currentPage  = basename($_SERVER['PHP_SELF'], '.php');
         </ul>
       </div>
     </div>
-    <div class="navbar__right">
-            <!-- Actions -->
-      <div class="header-actions">
-        <?php if (isLoggedIn()): ?>
-        <a href="<?= SITE_URL ?>/account/index.php" class="hdr-btn">
-          <i class="fa fa-user"></i><span>Account</span>
-        </a>
-        <a href="<?= SITE_URL ?>/account/wishlist.php" class="hdr-btn">
-          <i class="fa fa-heart"></i><span>Wishlist</span>
-          <?php if ($wishCount > 0): ?><span class="hdr-badge"><?= $wishCount ?></span><?php endif; ?>
-        </a>
-        <?php else: ?>
-        <a href="<?= SITE_URL ?>/account/login.php" class="hdr-btn">
-          <i class="fa fa-user"></i><span>Login</span>
-        </a>
-        <?php endif; ?>
-        <a href="<?= SITE_URL ?>/cart/index.php" class="hdr-btn cart-btn">
-          <i class="fa fa-cart-shopping"></i>
-          <span class="cart-count"><?= $cartCount ?></span>
-          <span>Cart</span>
-        </a>
-      </div>
-    </div>
-  </nav>
-  </div>  
-          <div class="header-bottom">
-              <div class="container">
-    <div class="header-top">
-
-      <!-- Live Search -->
-      <div class="header-search" id="searchWrap" style="position:relative">
-        <form action="<?= SITE_URL ?>/shop/index.php" method="GET" autocomplete="off" onsubmit="closeSearch()" style="display:flex;width:100%;height:100%;align-items:center">
-          <select name="cat">
-            <option value="">All categories</option>
-            <?php foreach (getCategories() as $cat): ?>
-            <option value="<?= h($cat['slug']) ?>"><?= h($cat['name']) ?></option>
-            <?php endforeach; ?>
-          </select>
-          <input type="text" name="q" id="searchInput"
-                 placeholder="Search plants, fertilizers…"
-                 value="<?= h($_GET['q'] ?? '') ?>"
-                 autocomplete="off"
-                 oninput="liveSearch(this.value)"
-                 onfocus="if(this.value.length>=2) liveSearch(this.value)"
-                 onkeydown="searchNav(event)">
-          <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
-        </form>
-        <!-- Dropdown -->
-        <div id="searchDrop" class="nav-drop-item"></div>
-      </div>
 
 
     </div>
@@ -429,8 +431,8 @@ function renderDrop(data, q) {
     html += '<div class="nv-hd">Suggestions</div>';
     data.suggestions.forEach(function(s, i) {
       var bold = s.replace(new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi'), '<strong style="color:var(--green-dark)">$1</strong>');
-      html += '<div class="sdrop-sug" data-idx="sug-' + i + '" onclick="doSearch(\'' + escQ(s) + '\')" style="padding:9px 18px;cursor:pointer;font-size:.875rem;color:var(--green-bright);display:flex;align-items:center;gap:8px">'
-            + '<i class="fa fa-magnifying-glass" style="font-size:.7rem;color:#bbb;flex-shrink:0"></i>'
+      html += '<div class="sdrop-sug" data-idx="sug-' + i + '" onclick="doSearch(\'' + escQ(s) + '\')">'
+            + '<i class="fa fa-magnifying-glass"></i>'
             + '<span>' + bold + '</span></div>';
     });
   }
@@ -438,19 +440,19 @@ function renderDrop(data, q) {
   if (data.products.length) {
     html += '<div class="nv-hd">Products</div>';
     data.products.forEach(function(p, i) {
-      html += '<a class="sdrop-prod" data-idx="prod-' + i + '" href="' + p.url + '" style="display:flex;align-items:center;gap:12px;padding:9px 16px;text-decoration:none;color:inherit;border-bottom:1px solid #f8f8f8" onclick="closeSearch()">'
+      html += '<a class="sdrop-prod" data-idx="prod-' + i + '" href="' + p.url + '" onclick="closeSearch()">'
             + (p.thumb
-                ? '<img src="' + p.thumb + '" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;border:1px solid #eee" onerror="this.style.display=\'none\'">'
-                : '<div style="width:44px;height:44px;border-radius:8px;background:#f3f3f3;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0">🌿</div>')
+                ? '<img src="' + p.thumb + '" onerror="this.style.display=\'none\'">'
+                : '<div class="sdrop-prod-img">🌿</div>')
             + '<div style="flex:1;min-width:0">'
-            + '<div style="font-size:.875rem;font-weight:500;color:#222;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + escHtml(p.name) + '</div>'
-            + '<div style="font-size:.8rem;color:var(--green-bright);font-weight:600;margin-top:2px">' + p.price_fmt + '</div>'
+            + '<div class="sdrop-name">' + escHtml(p.name) + '</div>'
+            + '<div class="sdrop-price">' + p.price_fmt + '</div>'
             + '</div></a>';
     });
   }
 
   // Footer link
-  html += '<a href="<?= SITE_URL ?>/shop/index.php?q=' + encodeURIComponent(q) + '" onclick="closeSearch()" style="display:block;text-align:center;padding:12px;font-size:.83rem;font-weight:600;color:var(--green-bright);border-top:1px solid #f0f0f0;background:#fafafa;text-decoration:none">Search for &ldquo;' + escHtml(q) + '&rdquo; →</a>';
+  html += '<a href="<?= SITE_URL ?>/shop/index.php?q=' + encodeURIComponent(q) + '" onclick="closeSearch()" class="btn-sch">Search for &ldquo;' + escHtml(q) + '&rdquo; →</a>';
 
   html += '</div>';
 drop.innerHTML = html;

@@ -31,48 +31,75 @@ $banners = $db->query("SELECT * FROM banners WHERE status=1 ORDER BY sort_order,
 
 include __DIR__ . '/includes/header.php';
 ?>
-
+<section class="banner">
+    <div class="banner-wrap">
+        <div class="container">
+          <div class="js-banner-slider">
+            <div class="banner-slide">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="banner-slide-col">
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, debitis!</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus expedita aspernatur, culpa quae placeat incidunt sit alias tenetur nisi quisquam.</p>
+                    <a href="#" class="cmn-btn">Shop Collection</a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="banner-slide-col">
+                    <div class="banner-slide-col-img">
+                      <img src="<?= SITE_URL ?>/assets/img/banner-img1.png" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="banner-slide">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="banner-slide-col">
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, debitis!</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus expedita aspernatur, culpa quae placeat incidunt sit alias tenetur nisi quisquam.</p>
+                    <a href="#" class="cmn-btn">Shop Collection</a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="banner-slide-col">
+                    <div class="banner-slide-col-img">
+                      <img src="<?= SITE_URL ?>/assets/img/banner-img2.png" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="banner-slide">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="banner-slide-col">
+                    <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, debitis!</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus expedita aspernatur, culpa quae placeat incidunt sit alias tenetur nisi quisquam.</p>
+                    <a href="#" class="cmn-btn">Shop Collection</a>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="banner-slide-col">
+                    <div class="banner-slide-col-img">
+                      <img src="<?= SITE_URL ?>/assets/img/banner-img3.png" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="<?= SITE_URL ?>/assets/img/weve-banner.svg" class="weve-banner" alt="">
+    </div>
+</section>
 <!-- ══════════════════════════════════════════════════════════
      HERO / BANNER SLIDER
 ══════════════════════════════════════════════════════════ -->
 <?php if (!empty($banners)): ?>
 <!-- ── DB Banner Slider ───────────────────────────────────── -->
-<div class="banner-slider" id="bannerSlider">
-  <?php foreach ($banners as $i => $b):
-    $imgSrc = imgUrl($b['image'] ?? '');
-    $href   = !empty($b['link']) ? h($b['link']) : (SITE_URL . '/shop/index.php');
-  ?>
-  <div class="banner-slide <?= $i===0?'active':'' ?>" style="<?= $imgSrc ? 'background-image:url('.h($imgSrc).')' : 'background:linear-gradient(135deg,var(--green-dark),var(--green-mid))' ?>">
-    <div class="banner-slide-overlay"></div>
-    <div class="container" style="position:relative;z-index:2">
-      <div class="banner-text">
-        <?php if (!empty($b['title'])): ?>
-        <h2 class="banner-title"><?= h($b['title']) ?></h2>
-        <?php endif; ?>
-        <?php if (!empty($b['subtitle'])): ?>
-        <p class="banner-subtitle"><?= h($b['subtitle']) ?></p>
-        <?php endif; ?>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
-          <a href="<?= $href ?>" class="btn btn-amber btn-lg"><i class="fa fa-leaf"></i> Shop Now</a>
-          <a href="<?= SITE_URL ?>/shop/index.php" class="btn btn-secondary btn-lg" style="border-color:rgba(255,255,255,.4);color:#fff">View All Products</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <?php endforeach; ?>
 
-  <?php if (count($banners) > 1): ?>
-  <!-- Arrows -->
-  <button class="banner-arrow banner-prev" onclick="bannerMove(-1)">&#8249;</button>
-  <button class="banner-arrow banner-next" onclick="bannerMove(1)">&#8250;</button>
-  <!-- Dots -->
-  <div class="banner-dots">
-    <?php foreach ($banners as $i => $b): ?>
-    <button class="banner-dot <?= $i===0?'active':'' ?>" onclick="bannerGo(<?= $i ?>)"></button>
-    <?php endforeach; ?>
-  </div>
-  <?php endif; ?>
-</div>
 
 <?php else: ?>
 <!-- ── Static Hero (no banners in DB) ────────────────────── -->
@@ -106,6 +133,7 @@ include __DIR__ . '/includes/header.php';
       </div>
     </div>
   </div>
+ 
 </section>
 <?php endif; ?>
 
@@ -113,13 +141,30 @@ include __DIR__ . '/includes/header.php';
      TRUST STRIP
 ══════════════════════════════════════════════════════════ -->
 <div class="trust-strip">
-  <div class="container">
-    <div class="trust-items">
-      <div class="trust-item"><i class="fa fa-truck"></i> Free shipping above ₹999</div>
-      <div class="trust-item"><i class="fa fa-leaf"></i> 100% Live plant guarantee</div>
-      <div class="trust-item"><i class="fa fa-shield-halved"></i> Secure payments</div>
-      <div class="trust-item"><i class="fa fa-rotate-left"></i> Easy returns</div>
-      <div class="trust-item"><i class="fa fa-headset"></i> Expert plant support</div>
+  <div class="container-fluid">
+    <div class="trust-strip-wrap">
+      <div class="row">
+        <div class="col-3 trust-col">
+            <div class="trust-icon"><img src="<?= SITE_URL ?>/assets/img/icon-1.png" alt=""></div>
+            <div class="trust-text">Free shipping above ₹999</div>
+        </div>
+        <div class="col-3 trust-col">
+            <div class="trust-icon"><img src="<?= SITE_URL ?>/assets/img/icon-2.png" alt=""></div>
+            <div class="trust-text">100% Live plant guarantee</div>
+        </div>
+        <div class="col-3 trust-col">
+            <div class="trust-icon"><img src="<?= SITE_URL ?>/assets/img/icon-3.png" alt=""></div>
+            <div class="trust-text">Secure payments</div>
+        </div>
+        <div class="col-3 trust-col">
+            <div class="trust-icon"><img src="<?= SITE_URL ?>/assets/img/icon-4.png" alt=""></div>
+            <div class="trust-text">Easy returns</div>
+        </div>
+        <div class="col-3 trust-col">
+            <div class="trust-icon"><img src="<?= SITE_URL ?>/assets/img/icon-5.png" alt=""></div>
+            <div class="trust-text">Expert plant support</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -128,16 +173,16 @@ include __DIR__ . '/includes/header.php';
      CATEGORIES CAROUSEL
 ══════════════════════════════════════════════════════════ -->
 <section class="cat-carousel-section">
-  <div class="container">
-    <div class="section-header-row" style="margin-bottom:28px">
-      <div class="section-header" style="text-align:left;margin-bottom:0">
-        <div class="section-label">Browse</div>
-        <h2 class="section-title" style="margin-bottom:0">Shop by Category</h2>
+  <div class="container-fluid">
+    
+    <div class="section-header-row">
+      <div class="section-header">
+        <h2 class="carousel-title">Best for your categories <span><b>23 categories</b> belonging to a total of <b>34,592 products</b></span></h2>
       </div>
-      <div style="display:flex;align-items:center;gap:10px">
-        <button class="car-arrow" onclick="catCarousel.prev()">&#8249;</button>
-        <button class="car-arrow" onclick="catCarousel.next()">&#8250;</button>
-        <a href="<?= SITE_URL ?>/shop/categories.php" class="btn btn-secondary btn-sm">View All</a>
+      <div style="display:flex;align-items:center;gap:17px">
+        <button class="cmn-btn-arrow car-arrow-prev"></button>
+        <button class="cmn-btn-arrow car-arrow-next"></button>
+        <!-- <a href="<?= SITE_URL ?>/shop/categories.php" class="cmn-btn">View All</a> -->
       </div>
     </div>
 
@@ -145,10 +190,9 @@ include __DIR__ . '/includes/header.php';
       <div class="cat-carousel-track" id="catTrack">
         <!-- All Products -->
         <a href="<?= SITE_URL ?>/shop/index.php" class="cat-card">
-          <div class="cat-card-img"><span>🛍️</span></div>
+          <div class="cat-card-img"><span><img src="<?= SITE_URL ?>/assets/img/emty-img.jpg" alt=""></span></div>
           <div class="cat-card-body">
             <div class="cat-card-name">All Products</div>
-            <div class="cat-card-btn">Shop Now <i class="fa fa-arrow-right"></i></div>
           </div>
         </a>
         <?php foreach ($categories as $cat): ?>
@@ -164,13 +208,13 @@ include __DIR__ . '/includes/header.php';
           </div>
           <div class="cat-card-body">
             <div class="cat-card-name"><?= h($cat['name']) ?></div>
-            <div class="cat-card-btn">Shop Now <i class="fa fa-arrow-right"></i></div>
           </div>
         </a>
         <?php endforeach; ?>
       </div>
     </div>
   </div>
+  <img src="<?= SITE_URL ?>/assets/img/rigt-wave.svg" class="rigt-wave" alt="">
 </section>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -186,24 +230,24 @@ if (empty($bestsellers)) { $bestsellers = $featured; }
 
 <?php
 $prodSections = [
-  ['id'=>'featured',    'label'=>'Our Collection', 'title'=>'⭐ Featured',     'emoji'=>'⭐', 'data'=>$featured,    'url'=>SITE_URL.'/shop/index.php?featured=1'],
-  ['id'=>'bestsellers', 'label'=>'Top Picks',      'title'=>'🔥 Best Sellers', 'emoji'=>'🔥', 'data'=>$bestsellers, 'url'=>SITE_URL.'/shop/index.php?bestseller=1'],
-  ['id'=>'newarrivals', 'label'=>'Just In',        'title'=>'✨ New Arrivals', 'emoji'=>'✨', 'data'=>$newArrivals, 'url'=>SITE_URL.'/shop/index.php?new=1'],
+  ['id'=>'featured',    'label'=>'Our Collection', 'title'=>'Featured',     'emoji'=>'⭐', 'data'=>$featured,    'url'=>SITE_URL.'/shop/index.php?featured=1'],
+  ['id'=>'bestsellers', 'label'=>'Top Picks',      'title'=>'Best Sellers', 'emoji'=>'🔥', 'data'=>$bestsellers, 'url'=>SITE_URL.'/shop/index.php?bestseller=1'],
+  ['id'=>'newarrivals', 'label'=>'Just In',        'title'=>'New Arrivals', 'emoji'=>'✨', 'data'=>$newArrivals, 'url'=>SITE_URL.'/shop/index.php?new=1'],
 ];
 foreach ($prodSections as $sec):
   if (empty($sec['data'])) continue;
 ?>
-<section class="prod-carousel-section <?= $sec['id']==='featured'?'':'prod-carousel-alt' ?>">
-  <div class="container">
+<section class="prod-carousel-section <?= $sec['id']==='featured' ? '' : 'prod-carousel-alt' ?> <?= $sec['id']==='newarrivals' ? 'prod-carousel-new' : '' ?>">
+  <div class="container-fluid">
     <div class="prod-carousel-header">
       <div>
         <div class="section-label"><?= $sec['label'] ?></div>
-        <h2 class="section-title" style="margin-bottom:0"><?= $sec['title'] ?></h2>
+        <h2><?= $sec['title'] ?></h2>
       </div>
       <div style="display:flex;align-items:center;gap:10px">
         <button class="car-arrow" onclick="prodCar('<?= $sec['id'] ?>',-1)">&#8249;</button>
         <button class="car-arrow" onclick="prodCar('<?= $sec['id'] ?>',1)">&#8250;</button>
-        <a href="<?= $sec['url'] ?>" class="btn btn-secondary btn-sm">View All <i class="fa fa-arrow-right"></i></a>
+        <a href="<?= $sec['url'] ?>" class="cmn-btn">View All</a>
       </div>
     </div>
     <div class="prod-carousel-viewport">
@@ -216,6 +260,7 @@ foreach ($prodSections as $sec):
       </div>
     </div>
   </div>
+    <img src="<?= SITE_URL ?>/assets/img/left-weve.svg" class="left-wave" alt="">
 </section>
 <?php endforeach; ?>
 
@@ -413,30 +458,6 @@ foreach ($prodSections as $sec):
 </section>
 
 <script>
-// ── Category Carousel ─────────────────────────────────────────
-(function() {
-  var track = document.getElementById('catTrack');
-  if (!track) return;
-  var pos = 0;
-  var cardW = function() {
-    var c = track.querySelector('.cat-card');
-    return c ? c.offsetWidth + 20 : 200;
-  };
-  var maxPos = function() { return Math.max(0, track.scrollWidth - track.parentElement.offsetWidth); };
-
-  window.catCarousel = {
-    next: function() { pos = Math.min(pos + cardW() * 3, maxPos()); track.style.transform = 'translateX(-' + pos + 'px)'; },
-    prev: function() { pos = Math.max(0, pos - cardW() * 3); track.style.transform = 'translateX(-' + pos + 'px)'; }
-  };
-
-  // Touch/swipe
-  var sx = 0;
-  track.parentElement.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
-  track.parentElement.addEventListener('touchend', function(e){
-    var dx = e.changedTouches[0].clientX - sx;
-    if (Math.abs(dx) > 40) { dx < 0 ? catCarousel.next() : catCarousel.prev(); }
-  });
-})();
 
 // ── Product Carousels ─────────────────────────────────────────
 var _ppos = {};

@@ -522,4 +522,8 @@
   .menu .menu__inner .submenu.megamenu__normal li a {
     color: var(--body-color);
   }
+
+  .navbar__center {
+    margin: 0 auto;
+  }
 }
